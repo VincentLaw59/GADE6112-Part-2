@@ -9,11 +9,13 @@ namespace Gade_1B_part_1
     abstract internal class Gold: Item
     {
         private int goldAmount;
+        private Random rand;
         public int GoldAmount { get { return goldAmount; } set { goldAmount = value; } }
 
         public Gold(int X, int Y) : base(X, Y)
         {
-
+            rand = new Random();
+            goldAmount = rand.Next(1, 6);
         }
     }
 }

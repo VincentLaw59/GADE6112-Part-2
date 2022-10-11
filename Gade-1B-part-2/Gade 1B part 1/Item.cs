@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Gade_1B_part_1
 {
-    abstract class Item: Tile
+    public abstract class Item: Tile
     {
         public Item(int X, int Y) : base(X, Y)
         {

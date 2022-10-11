@@ -4,11 +4,8 @@ namespace Gade_1B_part_1
     {
         private static GameEngine gameEngine = new GameEngine();
         
+        public static GameEngine GameEngine { get { return gameEngine; } set { gameEngine = value; } } //Error Trying to cast Mage to SwampCreature "(SwampCreature)Mage"
 
-
-        public static GameEngine GameEngine { get { return gameEngine; } set { gameEngine = value; } }
-
-        
         public frmGame() 
         {
             InitializeComponent();

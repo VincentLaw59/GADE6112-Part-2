@@ -11,7 +11,10 @@ namespace Gade_1B_part_1
         private Tile[,] map;
         public Hero player;
 
+        private Item[] items;
+
         private Enemy[] enemies;
+        private const int typesOfEnemies = 2;
 
         private int mapWidth;
         private int mapHeight;
@@ -23,7 +26,8 @@ namespace Gade_1B_part_1
         public int MapHeight { get { return mapHeight; } set { mapHeight = value; } }
         public Tile[,] gameMap { get { return map; } set { map = value; } }
         public Enemy[] Enemies { get { return enemies; } set { enemies = value; } }
-
+        public Item[] Items { get { return items; } set { items = value; } }
+        
         public Map(int minWidth, int maxWidth, int minHeight, int maxHeight, int amtEnemies)
         {
             mapWidth = rand.Next(minWidth, maxWidth);
@@ -56,9 +60,20 @@ namespace Gade_1B_part_1
             //Spawn enemies
             for (int p = 0; p < enemies.Length; p++)
             {
-                enemies[p] = (SwampCreature)Create(Tile.TileType.Enemy);
-                enemies[p].HP = 10;
-                map[enemies[p].X, enemies[p].Y] = enemies[p];
+                int chosenEnemy = rand.Next(1, typesOfEnemies + 1);
+
+                if (chosenEnemy == 1)
+                {
+                    enemies[p] = (SwampCreature)Create(Tile.TileType.Enemy);
+                    enemies[p].HP = 10;
+                }
+                else if (chosenEnemy == 2)
+                {
+                    enemies[p] = (Mage)Create(Tile.TileType.Enemy);
+                    enemies[p].HP = 5;
+                }
+                
+                map[enemies[p].X, enemies[p].Y] = enemies[p];       
                 MessageBox.Show(Convert.ToString(enemies[p]));
             }
 
@@ -68,10 +83,10 @@ namespace Gade_1B_part_1
 
         public void UpdateVision()  
         {     
-            player.vision[0] = map[player.X, player.Y - 1];      
-            player.vision[1] = map[player.X, player.Y + 1];
-            player.vision[2] = map[player.X + 1, player.Y];
-            player.vision[3] = map[player.X - 1, player.Y];
+            player.vision[0] = map[player.Y - 1, player.X];      
+            player.vision[1] = map[player.Y + 1, player.X];
+            player.vision[2] = map[player.Y, player.X + 1];
+            player.vision[3] = map[player.Y, player.X - 1];
             
             for (int m = 0; m < enemies.Length; m++)
             {
@@ -139,10 +154,28 @@ namespace Gade_1B_part_1
                 return new Hero(yCoord, xCoord, 10, 10, 2, (char)208);
             else if (type == Tile.TileType.Enemy)
             {
-                SwampCreature sc = new SwampCreature(xCoord, yCoord, 10, 10, 2, (char)190);
-                MessageBox.Show(Convert.ToString(sc));
-                FillEnemyArray(sc);
-                return sc;
+                ///////////////////////////////////////////////////////////////////////////////////////////////////////////                
+                int chosenEnemy = rand.Next(1, typesOfEnemies + 1);
+
+                if (chosenEnemy == 1)
+                {
+                    SwampCreature enemy = new SwampCreature(xCoord, yCoord, 10, 10, 2, (char)190);
+                    MessageBox.Show(Convert.ToString(enemy));
+                    FillEnemyArray(enemy);
+                    return enemy;
+                }
+                else
+                {
+                    Mage enemy = new Mage(xCoord, yCoord, 5, 5, 5, (char)191);
+                    MessageBox.Show(Convert.ToString(enemy));
+                    FillEnemyArray(enemy);
+                    return enemy;
+                }
+                ///////////////////////////////////////////////////////////////////////////////////////////////////
+                ////SwampCreature sc = new SwampCreature(xCoord, yCoord, 10, 10, 2, (char)190);
+                //MessageBox.Show(Convert.ToString(enemy));
+                //FillEnemyArray(enemy);
+                //return enemy;
             }
             else return new EmptyTile(yCoord, xCoord);
             
@@ -189,6 +222,10 @@ namespace Gade_1B_part_1
 
                         case EmptyTile:
                             stringOutput += " , " + "\t";
+                            break;
+
+                        case Mage:
+                            stringOutput += " M " + "\t";
                             break;
 
 
