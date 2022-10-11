@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "Gade 1B part 1/1.0.0": {
+        "runtime": {
+          "Gade 1B part 1.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Gade 1B part 1/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
