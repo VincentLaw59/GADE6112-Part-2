@@ -36,6 +36,7 @@ namespace Gade_1B_part_1
 
             map = new Tile[mapWidth, mapHeight];
             enemies = new Enemy[amtEnemies];
+            items = new Item[amtItems];
 
             //Spawn Border and fill Empty Tiles
             for (int k = 0; k < mapHeight; k++)
@@ -72,8 +73,14 @@ namespace Gade_1B_part_1
                     enemies[p].HP = 5;
                 }
                 //Spawns enemies
-                map[enemies[p].X, enemies[p].Y] = enemies[p];       
+                map[enemies[p].Y, enemies[p].X] = enemies[p];       
                 MessageBox.Show("Spawning: " + Convert.ToString(enemies[p]));
+            }
+
+            //Spawn Items
+            for (int p = 0; p < items.Length; p++)
+            {
+                items[p] = (Item)Create(Tile.TileType.Gold);
             }
 
             UpdateVision();
@@ -150,7 +157,7 @@ namespace Gade_1B_part_1
 
             //Create Entity
             if (type == Tile.TileType.Hero) 
-                return new Hero(yCoord, xCoord, 10, 10, 2, (char)208);
+                return new Hero(xCoord, yCoord, 10, 10, 2, (char)208);
             else if (type == Tile.TileType.Enemy)
             {
                 //Creates Specific Enemy////////////////////////////////////////////////////////////////////////////                
@@ -180,7 +187,7 @@ namespace Gade_1B_part_1
             {
                 return new Gold(xCoord, yCoord);
             }
-            else return new EmptyTile(yCoord, xCoord);
+            else return new EmptyTile(xCoord, yCoord);
             
         }
 
