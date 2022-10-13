@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Gade_1B_part_1
 {
-    abstract internal class Gold: Item
+    internal class Gold: Item
     {
         private int goldAmount;
         private Random rand;
@@ -16,6 +16,11 @@ namespace Gade_1B_part_1
         {
             rand = new Random();
             goldAmount = rand.Next(1, 6);
+        }
+
+        public override string ToString()
+        {
+            return "Something";
         }
     }
 }

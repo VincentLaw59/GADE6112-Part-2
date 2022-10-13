@@ -28,7 +28,7 @@ namespace Gade_1B_part_1
 
         public GameEngine()
         {
-            map = new Map(10, 10, 10, 10, 2); 
+            map = new Map(10, 10, 10, 10, 5, 5); 
         }
         public bool MovePlayer(Character.MovementEnum direction)
         {

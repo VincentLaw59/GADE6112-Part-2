@@ -29,7 +29,7 @@ namespace Gade_1B_part_1
         public Enemy[] Enemies { get { return enemies; } set { enemies = value; } }
         public Item[] Items { get { return items; } set { items = value; } }
         
-        public Map(int minWidth, int maxWidth, int minHeight, int maxHeight, int amtEnemies)
+        public Map(int minWidth, int maxWidth, int minHeight, int maxHeight, int amtEnemies, int amtItems)
         {
             mapWidth = rand.Next(minWidth, maxWidth);
             mapHeight = rand.Next(minHeight, maxHeight);
@@ -153,9 +153,7 @@ namespace Gade_1B_part_1
                 return new Hero(yCoord, xCoord, 10, 10, 2, (char)208);
             else if (type == Tile.TileType.Enemy)
             {
-                //Chooses Enemy to Create////////////////////////////////////////////////////////////////////////////                
-         
-
+                //Creates Specific Enemy////////////////////////////////////////////////////////////////////////////                
                 if (chosenEnemy == 1)
                 {
                     SwampCreature enemy = new SwampCreature(xCoord, yCoord, 10, 10, 2, (char)190);
@@ -176,6 +174,11 @@ namespace Gade_1B_part_1
                 //MessageBox.Show(Convert.ToString(enemy));
                 //FillEnemyArray(enemy);
                 //return enemy;
+            }
+            //Creates Gold Item
+            else if (type == Tile.TileType.Gold)
+            {
+                return new Gold(xCoord, yCoord);
             }
             else return new EmptyTile(yCoord, xCoord);
             
