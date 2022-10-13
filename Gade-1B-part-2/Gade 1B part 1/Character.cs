@@ -13,6 +13,7 @@ namespace Gade_1B_part_1
         protected int damage;
         protected char c = (char)208;
         protected bool isDead;
+        protected int goldPurse = 0;
         
         public Tile[] vision = new Tile[4];
         
@@ -21,6 +22,7 @@ namespace Gade_1B_part_1
         public int Damage { get { return damage; } set { damage = value; } }
         public char C { get { return c; } set { c = value; } }
         public bool IsDead { get { return isDead; } set { isDead = value; } }
+        public int GoldPurse { get { return goldPurse; } set { goldPurse = value; } }
         
         public Character(int x, int y, char character) : base(x, y)
         {
@@ -109,6 +111,14 @@ namespace Gade_1B_part_1
             }
         }
               
+        public void Pickup(Item i)
+        {
+            if (i is Gold)
+            {
+                goldPurse++;
+            }
+        }
+
         public abstract MovementEnum ReturnMove(MovementEnum move = 0);
 
         public abstract override string ToString();

@@ -22,7 +22,7 @@ namespace Gade_1B_part_1
             
             if(move == MovementEnum.Up)
             {
-                if (vision[0] is EmptyTile)
+                if ((vision[0] is EmptyTile) || (vision[0] is Gold)) //(vision[0] is Gold)) is a temporary fix
                 {
                     //Move up
                     return move;
@@ -37,7 +37,7 @@ namespace Gade_1B_part_1
 
             else if (move == MovementEnum.Down)
             {
-                if (vision[1] is EmptyTile)
+                if ((vision[1] is EmptyTile) || (vision[1] is Gold)) //
                 {
                     //Move down
                     return move;
@@ -49,9 +49,9 @@ namespace Gade_1B_part_1
                 }
             }
 
-            else if (move == MovementEnum.Left)
+            else if (move == MovementEnum.Left) 
             {
-                if (vision[3] is EmptyTile)
+                if ((vision[3] is EmptyTile) || (vision[3] is Gold)) //
                 {
                     //Move down
                     return move;
@@ -65,7 +65,7 @@ namespace Gade_1B_part_1
 
            else if (move == MovementEnum.Right)
             {
-                if (vision[2] is EmptyTile)
+                if ((vision[2] is EmptyTile) || (vision[2] is Gold)) //
                 {
                     //Move down
                     return move;

@@ -77,10 +77,14 @@ namespace Gade_1B_part_1
                 MessageBox.Show("Spawning: " + Convert.ToString(enemies[p]));
             }
 
-            //Spawn Items
+            
             for (int p = 0; p < items.Length; p++)
             {
+                //Fill item array
                 items[p] = (Item)Create(Tile.TileType.Gold);
+                
+                //Spawn Item
+                map[items[p].Y, items[p].X] = items[p];
             }
 
             UpdateVision();
@@ -89,6 +93,7 @@ namespace Gade_1B_part_1
 
         public void UpdateVision()  
         {     
+            //Look at blocks around player
             player.vision[0] = map[player.Y - 1, player.X];      
             player.vision[1] = map[player.Y + 1, player.X];
             player.vision[2] = map[player.Y, player.X + 1];
@@ -96,6 +101,7 @@ namespace Gade_1B_part_1
             
             for (int m = 0; m < enemies.Length; m++)
             {
+                //Looks at blocks around enemy
                 enemies[m].vision[(int)Character.VisionEnum.North] = map[enemies[m].X, enemies[m].Y - 1];
                 enemies[m].vision[(int)Character.VisionEnum.South] = map[enemies[m].X, enemies[m].Y + 1];
                 enemies[m].vision[(int)Character.VisionEnum.West] = map[enemies[m].X - 1, enemies[m].Y];
@@ -204,6 +210,22 @@ namespace Gade_1B_part_1
             }
         }
 
+        public Item GetItemAtPosition(int x, int y)
+        {
+            //Still to do
+            for (int k = 0; k < items.Length; k++)
+            {
+                if ((items[k].X == x) && (items[k].Y == y))
+                {
+                    Item goldItem = items[k];
+                    items[k] = null;
+                    return goldItem;
+                }
+            }
+
+            return null;
+        }
+
         public override string ToString()
         {
 
@@ -237,6 +259,10 @@ namespace Gade_1B_part_1
 
                         case Mage:
                             stringOutput += " M " + "\t";
+                            break;
+
+                        case Gold:
+                            stringOutput += "G" + "\t";
                             break;
 
 
