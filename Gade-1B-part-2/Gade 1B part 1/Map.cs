@@ -15,6 +15,7 @@ namespace Gade_1B_part_1
 
         private Enemy[] enemies;
         private const int typesOfEnemies = 2;
+        private int chosenEnemy = 0;
 
         private int mapWidth;
         private int mapHeight;
@@ -50,17 +51,15 @@ namespace Gade_1B_part_1
             }
 
             //Creating Hero
-           
-
             player = (Hero)Create(Tile.TileType.Hero);
             //Spawn Hero
             map[player.Y, player.X] = player;
 
             
-            //Spawn enemies
+            //Spawn enemies  //Fills the Enemy array 
             for (int p = 0; p < enemies.Length; p++)
             {
-                int chosenEnemy = rand.Next(1, typesOfEnemies + 1);
+                chosenEnemy = rand.Next(1, typesOfEnemies + 1);
 
                 if (chosenEnemy == 1)
                 {
@@ -72,9 +71,9 @@ namespace Gade_1B_part_1
                     enemies[p] = (Mage)Create(Tile.TileType.Enemy);
                     enemies[p].HP = 5;
                 }
-                
+                //Spawns enemies
                 map[enemies[p].X, enemies[p].Y] = enemies[p];       
-                MessageBox.Show(Convert.ToString(enemies[p]));
+                MessageBox.Show("Spawning: " + Convert.ToString(enemies[p]));
             }
 
             UpdateVision();
@@ -154,23 +153,24 @@ namespace Gade_1B_part_1
                 return new Hero(yCoord, xCoord, 10, 10, 2, (char)208);
             else if (type == Tile.TileType.Enemy)
             {
-                ///////////////////////////////////////////////////////////////////////////////////////////////////////////                
-                int chosenEnemy = rand.Next(1, typesOfEnemies + 1);
+                //Chooses Enemy to Create////////////////////////////////////////////////////////////////////////////                
+         
 
                 if (chosenEnemy == 1)
                 {
                     SwampCreature enemy = new SwampCreature(xCoord, yCoord, 10, 10, 2, (char)190);
-                    MessageBox.Show(Convert.ToString(enemy));
+                    MessageBox.Show("Creating: " + Convert.ToString(enemy));
                     FillEnemyArray(enemy);
                     return enemy;
                 }
-                else
+                else if (chosenEnemy == 2)
                 {
                     Mage enemy = new Mage(xCoord, yCoord, 5, 5, 5, (char)191);
-                    MessageBox.Show(Convert.ToString(enemy));
+                    MessageBox.Show("Creating: " + Convert.ToString(enemy));
                     FillEnemyArray(enemy);
                     return enemy;
                 }
+                else return new EmptyTile(xCoord,yCoord); //Used to stop "not all paths return a value" exception
                 ///////////////////////////////////////////////////////////////////////////////////////////////////
                 ////SwampCreature sc = new SwampCreature(xCoord, yCoord, 10, 10, 2, (char)190);
                 //MessageBox.Show(Convert.ToString(enemy));
@@ -190,6 +190,7 @@ namespace Gade_1B_part_1
                     enemies[i] = e;
                     return;
                 }
+
             }
         }
 
