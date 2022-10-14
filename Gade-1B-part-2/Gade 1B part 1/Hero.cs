@@ -24,6 +24,8 @@ namespace Gade_1B_part_1
             {
                 if ((vision[0] is EmptyTile) || (vision[0] is Gold)) //(vision[0] is Gold)) is a temporary fix
                 {
+                    if (vision[0] is Gold)
+                        Pickup((Gold)vision[0]);
                     //Move up
                     return move;
                 }
@@ -39,6 +41,8 @@ namespace Gade_1B_part_1
             {
                 if ((vision[1] is EmptyTile) || (vision[1] is Gold)) //
                 {
+                    if (vision[1] is Gold)
+                        Pickup((Gold)vision[1]);
                     //Move down
                     return move;
                 }
@@ -53,6 +57,8 @@ namespace Gade_1B_part_1
             {
                 if ((vision[3] is EmptyTile) || (vision[3] is Gold)) //
                 {
+                    if (vision[3] is Gold)
+                        Pickup((Gold)vision[3]);
                     //Move down
                     return move;
                 }
@@ -67,6 +73,8 @@ namespace Gade_1B_part_1
             {
                 if ((vision[2] is EmptyTile) || (vision[2] is Gold)) //
                 {
+                    if (vision[2] is Gold)
+                        Pickup((Gold)vision[2]);
                     //Move down
                     return move;
                 }
@@ -95,8 +103,11 @@ namespace Gade_1B_part_1
 
             //throw new NotImplementedException();
 
-            return "Player Stats: \n" + "HP: " + hp + "/" + maxHp +
-                "\nDamage: " + damage + "[" + x + "," + y + "]";
+            return "Player Stats:" + 
+                "\nHP: " + hp + "/" + maxHp +
+                "\nDamage: " + damage + 
+                "\nPlayer Position: [" + x + "," + y + "]" +
+                "\nGold Collected: " + GoldPurse;
         }
 
        

@@ -90,7 +90,6 @@ namespace Gade_1B_part_1
             UpdateVision();
         }
 
-
         public void UpdateVision()  
         {     
             //Look at blocks around player
