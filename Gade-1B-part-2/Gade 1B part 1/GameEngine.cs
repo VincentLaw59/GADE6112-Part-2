@@ -9,7 +9,7 @@ namespace Gade_1B_part_1
 {
     public class GameEngine
     {
-        private string path = "GameState.bin";
+        private string path = "GameSaveState.bin";
         private string[,] loadedMap;
 
         private Map map;
@@ -95,7 +95,7 @@ namespace Gade_1B_part_1
 
                     bw.Write(type);
                 }
-                //bw.Write("\n");
+                bw.Write("-");
             }
             bw.Close();
             fs.Close(); 
@@ -104,17 +104,23 @@ namespace Gade_1B_part_1
         public void Load(string savePath)
         {
             path = savePath;
+            loadedMap = new string[map.MapWidth, map.MapHeight];
 
             FileStream fs = new FileStream(savePath, FileMode.Open);
             BinaryReader bw = new BinaryReader(fs);
 
-            for (int k = 0; k < map.MapHeight; k++)
+            int counterX = 0, counterY = 0;
+
+            for (int k = 0; k < bw.ReadString().Length; k++)
             {
-                for (int m = 0; m < map.MapWidth; m++)
+                if (bw.ReadString() != "-")
                 {
-                    loadedMap[m, k] = bw.ReadString();
+                    loadedMap[counterX, counterY] = bw.ReadString();
+                    counterX++;
                 }
-            }
+                else counterY++;
+            } 
+
             bw.Close();
             fs.Close();
 

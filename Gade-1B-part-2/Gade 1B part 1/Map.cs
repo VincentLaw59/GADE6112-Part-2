@@ -21,7 +21,8 @@ namespace Gade_1B_part_1
         private int mapHeight;
         private Random rand = new Random();
 
-        
+        public int maxWidth;
+
         public Hero Player { get { return player; } set { player = value; } }
         public int MapWidth { get { return mapWidth; } set { mapWidth = value; } }
         public int MapHeight { get { return mapHeight; } set { mapHeight = value; } }
@@ -31,6 +32,7 @@ namespace Gade_1B_part_1
         
         public Map(int minWidth, int maxWidth, int minHeight, int maxHeight, int amtEnemies, int amtItems)
         {
+            this.maxWidth = maxWidth;
             mapWidth = rand.Next(minWidth, maxWidth);
             mapHeight = rand.Next(minHeight, maxHeight);
 
