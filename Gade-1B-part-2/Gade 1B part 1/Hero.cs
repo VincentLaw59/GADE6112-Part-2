@@ -12,6 +12,9 @@ namespace Gade_1B_part_1
         public Hero(int x, int y, int hp, int maxHp, int damage, char character): base(x, y, character) 
         {
             damage = 2;
+            HP = hp;
+            MaxHp = maxHp;
+            Damage = damage;
         }
 
        
@@ -104,7 +107,7 @@ namespace Gade_1B_part_1
             //throw new NotImplementedException();
 
             return "Player Stats:" + 
-                "\nHP: " + hp + "/" + maxHp +
+                "\nHP: " + HP + "/" + MaxHp +
                 "\nDamage: " + damage + 
                 "\nPlayer Position: [" + x + "," + y + "]" +
                 "\nGold Collected: " + GoldPurse;

@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace Gade_1B_part_1
 {
     public class GameEngine
     {
+        private string path = "GameState.bin";
+        private string[,] loadedMap;
 
         private Map map;
 
@@ -34,13 +37,12 @@ namespace Gade_1B_part_1
         {
             if (Map.Player.ReturnMove(direction) == direction)
             {
-                Map.player.Move(direction);
+                Map.Player.Move(direction);
 
                 switch (direction)
                 {
                     case Character.MovementEnum.NoMovement:
                         Map.gameMap[Map.Player.Y, Map.Player.X] = new EmptyTile(Map.Player.X, Map.Player.Y);
-                        // map.UpdateVision();
                         break;
 
                     case Character.MovementEnum.Up:
@@ -62,13 +64,63 @@ namespace Gade_1B_part_1
                         Map.gameMap[Map.Player.Y, Map.Player.X - 1] = new EmptyTile(Map.Player.X, Map.Player.Y);
                         map.UpdateVision();
                         break;
-                }
-                                   
+                }            
             }
-
             return true;
         }
-              
+
+        public void Save(string savePath)
+        {
+            path = savePath;
+
+            FileStream fs = new FileStream(savePath, FileMode.Create);
+            BinaryWriter bw = new BinaryWriter(fs);
+
+            for (int k = 0; k < map.MapHeight; k++)
+            {
+                for (int m = 0; m < map.MapWidth; m++)
+                {
+                    string type = " ";
+                    //bw.Write(map.gameMap[m, k]);
+                    if (map.gameMap[m, k] is EmptyTile)
+                        type = "E";
+                    else if (map.gameMap[m, k] is Hero)
+                        type = "H";
+                    else if (map.gameMap[m, k] is SwampCreature)
+                        type = "S";
+                    else if (map.gameMap[m, k] is Mage)
+                        type = "M";
+                    else if (map.gameMap[m, k] is Gold)
+                        type = "G";
+
+                    bw.Write(type);
+                }
+                //bw.Write("\n");
+            }
+            bw.Close();
+            fs.Close(); 
+
+        }
+        public void Load(string savePath)
+        {
+            path = savePath;
+
+            FileStream fs = new FileStream(savePath, FileMode.Open);
+            BinaryReader bw = new BinaryReader(fs);
+
+            for (int k = 0; k < map.MapHeight; k++)
+            {
+                for (int m = 0; m < map.MapWidth; m++)
+                {
+                    loadedMap[m, k] = bw.ReadString();
+                }
+            }
+            bw.Close();
+            fs.Close();
+
+        }
+
+
     }
 }
 

@@ -9,7 +9,7 @@ namespace Gade_1B_part_1
     public class Map
     {
         private Tile[,] map;
-        public Hero player;
+        private Hero player;
 
         private Item[] items;
 
@@ -211,7 +211,6 @@ namespace Gade_1B_part_1
 
         public Item GetItemAtPosition(int x, int y)
         {
-            //Still to do
             for (int k = 0; k < items.Length; k++)
             {
                 if ((items[k].X == x) && (items[k].Y == y))

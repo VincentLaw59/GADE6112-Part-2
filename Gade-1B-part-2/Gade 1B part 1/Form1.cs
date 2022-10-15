@@ -62,7 +62,7 @@ namespace Gade_1B_part_1
         private void AttackBtn_Click(object sender, EventArgs e)
         {
             if (CmbListOfEnemies.SelectedIndex == -1) return;
-           bool inRange =  GameEngine.Map.player.CheckRange(GameEngine.Map.Enemies[CmbListOfEnemies.SelectedIndex]);
+           bool inRange =  GameEngine.Map.Player.CheckRange(GameEngine.Map.Enemies[CmbListOfEnemies.SelectedIndex]);
 
           if (inRange)
           {

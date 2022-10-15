@@ -40,24 +40,25 @@
             this.AttackButton = new System.Windows.Forms.Button();
             this.CmbListOfEnemies = new System.Windows.Forms.ComboBox();
             this.RedOutput = new System.Windows.Forms.RichTextBox();
+            this.sfdSave = new System.Windows.Forms.SaveFileDialog();
             this.SuspendLayout();
             // 
             // redPlayArea
             // 
             this.redPlayArea.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.redPlayArea.Location = new System.Drawing.Point(37, 35);
+            this.redPlayArea.Location = new System.Drawing.Point(46, 44);
             this.redPlayArea.Margin = new System.Windows.Forms.Padding(2);
             this.redPlayArea.Name = "redPlayArea";
-            this.redPlayArea.Size = new System.Drawing.Size(601, 601);
+            this.redPlayArea.Size = new System.Drawing.Size(750, 750);
             this.redPlayArea.TabIndex = 0;
             this.redPlayArea.Text = "";
             // 
             // btnStart
             // 
-            this.btnStart.Location = new System.Drawing.Point(918, 35);
+            this.btnStart.Location = new System.Drawing.Point(1148, 44);
             this.btnStart.Margin = new System.Windows.Forms.Padding(2);
             this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(90, 27);
+            this.btnStart.Size = new System.Drawing.Size(112, 34);
             this.btnStart.TabIndex = 1;
             this.btnStart.Text = "Start";
             this.btnStart.UseVisualStyleBackColor = true;
@@ -65,10 +66,10 @@
             // 
             // bntUp
             // 
-            this.bntUp.Location = new System.Drawing.Point(918, 189);
+            this.bntUp.Location = new System.Drawing.Point(1148, 236);
             this.bntUp.Margin = new System.Windows.Forms.Padding(2);
             this.bntUp.Name = "bntUp";
-            this.bntUp.Size = new System.Drawing.Size(90, 27);
+            this.bntUp.Size = new System.Drawing.Size(112, 34);
             this.bntUp.TabIndex = 2;
             this.bntUp.Text = "Up";
             this.bntUp.UseVisualStyleBackColor = true;
@@ -76,10 +77,10 @@
             // 
             // btnDown
             // 
-            this.btnDown.Location = new System.Drawing.Point(918, 265);
+            this.btnDown.Location = new System.Drawing.Point(1148, 331);
             this.btnDown.Margin = new System.Windows.Forms.Padding(2);
             this.btnDown.Name = "btnDown";
-            this.btnDown.Size = new System.Drawing.Size(90, 27);
+            this.btnDown.Size = new System.Drawing.Size(112, 34);
             this.btnDown.TabIndex = 3;
             this.btnDown.Text = "Down";
             this.btnDown.UseVisualStyleBackColor = true;
@@ -87,10 +88,10 @@
             // 
             // btnLeft
             // 
-            this.btnLeft.Location = new System.Drawing.Point(825, 231);
+            this.btnLeft.Location = new System.Drawing.Point(1031, 289);
             this.btnLeft.Margin = new System.Windows.Forms.Padding(2);
             this.btnLeft.Name = "btnLeft";
-            this.btnLeft.Size = new System.Drawing.Size(90, 27);
+            this.btnLeft.Size = new System.Drawing.Size(112, 34);
             this.btnLeft.TabIndex = 4;
             this.btnLeft.Text = "Left";
             this.btnLeft.UseVisualStyleBackColor = true;
@@ -98,10 +99,10 @@
             // 
             // btnRight
             // 
-            this.btnRight.Location = new System.Drawing.Point(1010, 231);
+            this.btnRight.Location = new System.Drawing.Point(1262, 289);
             this.btnRight.Margin = new System.Windows.Forms.Padding(2);
             this.btnRight.Name = "btnRight";
-            this.btnRight.Size = new System.Drawing.Size(90, 27);
+            this.btnRight.Size = new System.Drawing.Size(112, 34);
             this.btnRight.TabIndex = 5;
             this.btnRight.Text = "Right";
             this.btnRight.UseVisualStyleBackColor = true;
@@ -139,10 +140,10 @@
             // 
             // AttackButton
             // 
-            this.AttackButton.Location = new System.Drawing.Point(1032, 319);
+            this.AttackButton.Location = new System.Drawing.Point(1290, 399);
             this.AttackButton.Margin = new System.Windows.Forms.Padding(2);
             this.AttackButton.Name = "AttackButton";
-            this.AttackButton.Size = new System.Drawing.Size(191, 191);
+            this.AttackButton.Size = new System.Drawing.Size(239, 239);
             this.AttackButton.TabIndex = 7;
             this.AttackButton.Text = "Attack";
             this.AttackButton.UseVisualStyleBackColor = true;
@@ -151,24 +152,26 @@
             // CmbListOfEnemies
             // 
             this.CmbListOfEnemies.FormattingEnabled = true;
-            this.CmbListOfEnemies.Location = new System.Drawing.Point(659, 319);
+            this.CmbListOfEnemies.Location = new System.Drawing.Point(824, 399);
+            this.CmbListOfEnemies.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.CmbListOfEnemies.Name = "CmbListOfEnemies";
-            this.CmbListOfEnemies.Size = new System.Drawing.Size(349, 28);
+            this.CmbListOfEnemies.Size = new System.Drawing.Size(435, 33);
             this.CmbListOfEnemies.TabIndex = 8;
             // 
             // RedOutput
             // 
-            this.RedOutput.Location = new System.Drawing.Point(659, 375);
+            this.RedOutput.Location = new System.Drawing.Point(824, 469);
+            this.RedOutput.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.RedOutput.Name = "RedOutput";
-            this.RedOutput.Size = new System.Drawing.Size(279, 142);
+            this.RedOutput.Size = new System.Drawing.Size(348, 176);
             this.RedOutput.TabIndex = 9;
             this.RedOutput.Text = "";
             // 
             // frmGame
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1262, 675);
+            this.ClientSize = new System.Drawing.Size(1578, 844);
             this.Controls.Add(this.RedOutput);
             this.Controls.Add(this.CmbListOfEnemies);
             this.Controls.Add(this.AttackButton);
@@ -199,7 +202,8 @@
         private Button Attack;
         private Button AttackButton;
         private ComboBox CmbListOfEnemies;
-        private RichTextBox redOutput;
+        //private RichTextBox redOutput;
         private RichTextBox RedOutput;
+        private SaveFileDialog sfdSave;
     }
 }
