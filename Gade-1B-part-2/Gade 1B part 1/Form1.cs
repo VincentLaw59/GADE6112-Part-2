@@ -86,6 +86,35 @@ namespace Gade_1B_part_1
         {
 
         }
-                
+
+        private void btnSaveGame_Click(object sender, EventArgs e)
+        {
+            GameEngine.Save("SaveFile.bin");
+        }
+
+        private void btnLoadGame_Click(object sender, EventArgs e)
+        {
+            gameEngine.Load("SaveFile.bin");
+            //Map mapLoadded = new Map(GameEngine.Map.MapWidth, GameEngine.Map.MapWidth, GameEngine.Map.MapHeight, GameEngine.Map.MapHeight, 0, 0);
+            gameEngine.Map = new Map(gameEngine.Map.MapWidth, gameEngine.Map.MapWidth, gameEngine.Map.MapHeight, gameEngine.Map.MapHeight, 0, 0);
+
+            for (int k = 0; k < gameEngine.Map.MapHeight; k++)
+            {
+                for (int m = 0; m < gameEngine.Map.MapWidth; m++)
+                {
+                    switch (gameEngine.LoadedMap[m, k])
+                    {
+                        case "E": gameEngine.Map.gameMap[m, k] = new EmptyTile(m, k); return;
+                        case "H": gameEngine.Map.gameMap[m, k] = new Hero(m, k, 10, 10, 2, (char)208); return;
+                        case "S": gameEngine.Map.gameMap[m, k] = new SwampCreature(m, k, 10, 10, 2, (char)190);return;
+                        case "M": gameEngine.Map.gameMap[m, k] = new Mage(m, k, 5, 5, 5, (char)191); return;
+                        case "G": gameEngine.Map.gameMap[m, k] = new Gold(m, k); return;
+                        case "O": gameEngine.Map.gameMap[m, k] = new Obstacle(m, k); return;
+                    }
+                }
+            }
+            redPlayArea.Text = gameEngine.Map.gameMap.ToString();
+            RedOutput.Text = gameEngine.Map.Player.ToString();
+        }
     }
 }

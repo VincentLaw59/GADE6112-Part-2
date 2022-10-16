@@ -41,6 +41,10 @@
             this.CmbListOfEnemies = new System.Windows.Forms.ComboBox();
             this.RedOutput = new System.Windows.Forms.RichTextBox();
             this.sfdSave = new System.Windows.Forms.SaveFileDialog();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnLoad = new System.Windows.Forms.Button();
+            this.btnSaveGame = new System.Windows.Forms.Button();
+            this.btnLoadGame = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // redPlayArea
@@ -153,7 +157,7 @@
             // 
             this.CmbListOfEnemies.FormattingEnabled = true;
             this.CmbListOfEnemies.Location = new System.Drawing.Point(824, 399);
-            this.CmbListOfEnemies.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.CmbListOfEnemies.Margin = new System.Windows.Forms.Padding(4);
             this.CmbListOfEnemies.Name = "CmbListOfEnemies";
             this.CmbListOfEnemies.Size = new System.Drawing.Size(435, 33);
             this.CmbListOfEnemies.TabIndex = 8;
@@ -161,17 +165,55 @@
             // RedOutput
             // 
             this.RedOutput.Location = new System.Drawing.Point(824, 469);
-            this.RedOutput.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.RedOutput.Margin = new System.Windows.Forms.Padding(4);
             this.RedOutput.Name = "RedOutput";
             this.RedOutput.Size = new System.Drawing.Size(348, 176);
             this.RedOutput.TabIndex = 9;
             this.RedOutput.Text = "";
+            // 
+            // btnSave
+            // 
+            this.btnSave.Location = new System.Drawing.Point(0, 0);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.TabIndex = 1;
+            // 
+            // btnLoad
+            // 
+            this.btnLoad.Location = new System.Drawing.Point(0, 0);
+            this.btnLoad.Name = "btnLoad";
+            this.btnLoad.Size = new System.Drawing.Size(75, 23);
+            this.btnLoad.TabIndex = 0;
+            // 
+            // btnSaveGame
+            // 
+            this.btnSaveGame.Location = new System.Drawing.Point(824, 754);
+            this.btnSaveGame.Name = "btnSaveGame";
+            this.btnSaveGame.Size = new System.Drawing.Size(150, 40);
+            this.btnSaveGame.TabIndex = 10;
+            this.btnSaveGame.Text = "Save";
+            this.btnSaveGame.UseVisualStyleBackColor = true;
+            this.btnSaveGame.Click += new System.EventHandler(this.btnSaveGame_Click);
+            // 
+            // btnLoadGame
+            // 
+            this.btnLoadGame.Location = new System.Drawing.Point(1022, 754);
+            this.btnLoadGame.Name = "btnLoadGame";
+            this.btnLoadGame.Size = new System.Drawing.Size(150, 40);
+            this.btnLoadGame.TabIndex = 11;
+            this.btnLoadGame.Text = "Load";
+            this.btnLoadGame.UseVisualStyleBackColor = true;
+            this.btnLoadGame.Click += new System.EventHandler(this.btnLoadGame_Click);
             // 
             // frmGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1578, 844);
+            this.Controls.Add(this.btnLoadGame);
+            this.Controls.Add(this.btnSaveGame);
+            this.Controls.Add(this.btnLoad);
+            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.RedOutput);
             this.Controls.Add(this.CmbListOfEnemies);
             this.Controls.Add(this.AttackButton);
@@ -205,5 +247,9 @@
         //private RichTextBox redOutput;
         private RichTextBox RedOutput;
         private SaveFileDialog sfdSave;
+        private Button btnSave;
+        private Button btnLoad;
+        private Button btnSaveGame;
+        private Button btnLoadGame;
     }
 }

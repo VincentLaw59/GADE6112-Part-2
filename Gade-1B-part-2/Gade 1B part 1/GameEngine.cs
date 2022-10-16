@@ -27,6 +27,7 @@ namespace Gade_1B_part_1
         public char Empty { get { return empty; } }
         public char SwampCreature { get { return swampCreature; } }
         public char Obstacle { get { return obstacle; } }
+        public string[,] LoadedMap { get { return loadedMap; } }
         //public static Hero Hero { get { return hero; } set { hero = value; } }
 
         public GameEngine()
@@ -80,7 +81,7 @@ namespace Gade_1B_part_1
             {
                 for (int m = 0; m < map.MapWidth; m++)
                 {
-                    string type = " ";
+                    string type = "*";
                     //bw.Write(map.gameMap[m, k]);
                     if (map.gameMap[m, k] is EmptyTile)
                         type = "E";
@@ -92,6 +93,8 @@ namespace Gade_1B_part_1
                         type = "M";
                     else if (map.gameMap[m, k] is Gold)
                         type = "G";
+                    else if (map.gameMap[m, k] is Obstacle)
+                        type = "O";
 
                     bw.Write(type);
                 }
@@ -111,7 +114,7 @@ namespace Gade_1B_part_1
 
             int counterX = 0, counterY = 0;
 
-            for (int k = 0; k < bw.ReadString().Length; k++)
+            for (int k = 0; k < bw.Read(); k++)
             {
                 if (bw.ReadString() != "-")
                 {

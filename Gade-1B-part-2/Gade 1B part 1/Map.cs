@@ -33,6 +33,7 @@ namespace Gade_1B_part_1
         public Map(int minWidth, int maxWidth, int minHeight, int maxHeight, int amtEnemies, int amtItems)
         {
             this.maxWidth = maxWidth;
+
             mapWidth = rand.Next(minWidth, maxWidth);
             mapHeight = rand.Next(minHeight, maxHeight);
 
@@ -254,7 +255,7 @@ namespace Gade_1B_part_1
                             break;
 
                         case EmptyTile:
-                            stringOutput += " , " + "\t";
+                            stringOutput += " . " + "\t";
                             break;
 
                         case Mage:
