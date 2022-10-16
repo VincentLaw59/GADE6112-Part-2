@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Gade_1B_part_1
 {
-    class SwampCreature : Enemy
+    public class SwampCreature : Enemy
     {
         public SwampCreature(int x, int y, int hp, int maxHp, int damage, char character): base(x, y, character)
         {
@@ -15,6 +15,70 @@ namespace Gade_1B_part_1
         }
 
         public override MovementEnum ReturnMove(MovementEnum move = MovementEnum.NoMovement)
+        {
+            if (move == MovementEnum.Up)
+            {
+                if (vision[0] is EmptyTile)
+                {
+                    //Move up
+                    return move;
+                }
+                else
+                {
+                    move = MovementEnum.NoMovement;
+                    return move;
+                }
+            }
+
+            else if (move == MovementEnum.Down)
+            {
+                if (vision[1] is EmptyTile)
+                {
+                    //Move down
+                    return move;
+                }
+                else
+                {
+                    move = MovementEnum.NoMovement;
+                    return move;
+                }
+            }
+
+            else if (move == MovementEnum.Left)
+            {
+                if (vision[3] is EmptyTile)
+                {
+                    //Move down
+                    return move;
+                }
+                else
+                {
+                    move = MovementEnum.NoMovement;
+                    return move;
+                }
+            }
+
+            else if (move == MovementEnum.Right)
+            {
+                if (vision[2] is EmptyTile)
+                {
+                    //Move down
+                    return move;
+                }
+                else
+                {
+                    move = MovementEnum.NoMovement;
+                    return move;
+                }
+            }
+            else
+            {
+                move = MovementEnum.NoMovement;
+            }
+            return move;
+        }
+
+        public /*override*/ MovementEnum ReturnRandomMove(MovementEnum move = MovementEnum.NoMovement)
         {
             int generateDirection;
             do

@@ -70,6 +70,49 @@ namespace Gade_1B_part_1
             return true;
         }
 
+        public bool EnemyMove(SwampCreature.MovementEnum direction, SwampCreature sc)
+        {
+            if (sc.ReturnMove(direction) == direction)
+            {
+                sc.Move(direction);
+                Random moveRandom = new Random();
+
+
+                direction = (SwampCreature.MovementEnum)moveRandom.Next(0, 4);
+
+                switch (direction)
+                {
+                    case Character.MovementEnum.Up:
+                        Map.gameMap[sc.Y + 1, sc.X] = new EmptyTile(sc.X, sc.Y);
+                        Map.UpdateVision();
+                        break;
+
+                    case Character.MovementEnum.Down:
+                        Map.gameMap[sc.Y - 1, sc.X] = new EmptyTile(sc.X, sc.Y);
+                        Map.UpdateVision();
+                        break;
+
+                    case Character.MovementEnum.Left:
+                        Map.gameMap[sc.Y, sc.X - 1] = new EmptyTile(sc.X, sc.Y);
+                        Map.UpdateVision();
+                        break;
+
+                    case Character.MovementEnum.Right:
+                        Map.gameMap[sc.Y, sc.X + 1] = new EmptyTile(sc.X, sc.Y);
+                        Map.UpdateVision();
+                        break;
+
+                    default:
+                        Map.gameMap[sc.Y, sc.X] = new EmptyTile(sc.X, sc.Y);
+                        Map.UpdateVision();
+                        break;
+                }
+
+            }
+
+            return true;
+        }
+
         public void Save(string savePath)
         {
             path = savePath;
