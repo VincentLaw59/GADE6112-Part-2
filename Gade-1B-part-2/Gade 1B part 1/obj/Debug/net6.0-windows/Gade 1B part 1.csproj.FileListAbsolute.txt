@@ -56,3 +56,5 @@ C:\Users\theyo\source\repos\GADE611-Part-2\Gade-1B-part-2\Gade 1B part 1\obj\Deb
 C:\Users\theyo\source\repos\GADE611-Part-2\Gade-1B-part-2\Gade 1B part 1\obj\Debug\net6.0-windows\ref\Gade 1B part 1.dll
 C:\Users\theyo\source\repos\GADE611-Part-2\Gade-1B-part-2\Gade 1B part 1\obj\Debug\net6.0-windows\Gade 1B part 1.pdb
 C:\Users\theyo\source\repos\GADE611-Part-2\Gade-1B-part-2\Gade 1B part 1\obj\Debug\net6.0-windows\Gade 1B part 1.genruntimeconfig.cache
+C:\Users\Herbz\Desktop\Vega\Semester 2\GADE6122\POE\Gade-1B-part-2\GADE6112-Part-2\Gade-1B-part-2\Gade 1B part 1\bin\Debug\net6.0-windows\Newtonsoft.Json.dll
+C:\Users\Herbz\Desktop\Vega\Semester 2\GADE6122\POE\Gade-1B-part-2\GADE6112-Part-2\Gade-1B-part-2\Gade 1B part 1\obj\Debug\net6.0-windows\Gade 1B part 1.csproj.CopyComplete

@@ -21,7 +21,8 @@ namespace Gade_1B_part_1
         private int mapHeight;
         private Random rand = new Random();
 
-        public int maxWidth;
+        public int maxWidth = 0;
+        public int maxHeight = 0;
 
         public Hero Player { get { return player; } set { player = value; } }
         public int MapWidth { get { return mapWidth; } set { mapWidth = value; } }
@@ -33,9 +34,15 @@ namespace Gade_1B_part_1
         public Map(int minWidth, int maxWidth, int minHeight, int maxHeight, int amtEnemies, int amtItems)
         {
             this.maxWidth = maxWidth;
+            this.maxHeight = maxHeight;
 
-            mapWidth = rand.Next(minWidth, maxWidth);
-            mapHeight = rand.Next(minHeight, maxHeight);
+            if ((mapWidth == 0)&&(mapHeight == 0))
+            {
+                mapWidth = rand.Next(minWidth, maxWidth);
+                mapHeight = rand.Next(minHeight, maxHeight);
+            }
+         
+
 
             map = new Tile[mapWidth, mapHeight];
             enemies = new Enemy[amtEnemies];
@@ -77,7 +84,7 @@ namespace Gade_1B_part_1
                 }
                 //Spawns enemies
                 map[enemies[p].Y, enemies[p].X] = enemies[p];       
-                MessageBox.Show("Spawning: " + Convert.ToString(enemies[p]));
+                //MessageBox.Show("Spawning: " + Convert.ToString(enemies[p]));
             }
 
             
@@ -173,14 +180,14 @@ namespace Gade_1B_part_1
                 if (chosenEnemy == 1)
                 {
                     SwampCreature enemy = new SwampCreature(xCoord, yCoord, 10, 10, 2, (char)190);
-                    MessageBox.Show("Creating: " + Convert.ToString(enemy));
+                    //MessageBox.Show("Creating: " + Convert.ToString(enemy));
                     FillEnemyArray(enemy);
                     return enemy;
                 }
                 else if (chosenEnemy == 2)
                 {
                     Mage enemy = new Mage(xCoord, yCoord, 5, 5, 5, (char)191);
-                    MessageBox.Show("Creating: " + Convert.ToString(enemy));
+                    //MessageBox.Show("Creating: " + Convert.ToString(enemy));
                     FillEnemyArray(enemy);
                     return enemy;
                 }

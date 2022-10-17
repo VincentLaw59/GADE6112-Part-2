@@ -13,7 +13,7 @@ namespace Gade_1B_part_1
         private string[,] loadedMap;
 
         private Map map;
-
+    
 
         //private static Hero hero = new Hero(5, 5, 20, 20, 2, HeroChar); //fix char
         private static char heroChar = (char)208;
@@ -89,14 +89,14 @@ namespace Gade_1B_part_1
                        
                         // Map.gameMap[sc.Y, sc.X] = new EmptyTile(sc.X, sc.Y);
                         Map.UpdateVision();
-                        MessageBox.Show("NOWHERE");
+                        //MessageBox.Show("NOWHERE");
                         break;
 
                     case Character.MovementEnum.Up:
                         
                         Map.gameMap[sc.Y+1, sc.X] = new EmptyTile(sc.X, sc.Y);
                         Map.UpdateVision();
-                        MessageBox.Show("UP");
+                        //MessageBox.Show("UP");
 
                         break;
 
@@ -104,7 +104,7 @@ namespace Gade_1B_part_1
                         
                         Map.gameMap[sc.Y-1, sc.X] = new EmptyTile(sc.X, sc.Y);
                         Map.UpdateVision();
-                        MessageBox.Show("DOWN");
+                        //MessageBox.Show("DOWN");
 
                         break;
 
@@ -112,7 +112,7 @@ namespace Gade_1B_part_1
                         
                         Map.gameMap[sc.Y, sc.X+1] = new EmptyTile(sc.X, sc.Y);
                         Map.UpdateVision();
-                        MessageBox.Show("LEFT");
+                        //MessageBox.Show("LEFT");
 
                         break;
 
@@ -120,7 +120,7 @@ namespace Gade_1B_part_1
                       
                         Map.gameMap[sc.Y, sc.X-1] = new EmptyTile(sc.X, sc.Y);
                         Map.UpdateVision();
-                        MessageBox.Show("RIGHT");
+                        //MessageBox.Show("RIGHT");
 
                         break;
 
@@ -132,7 +132,7 @@ namespace Gade_1B_part_1
             return true;
         }
 
-        public void Save(string savePath)
+        public void BinarySave(string savePath)
         {
             path = savePath;
 
@@ -166,7 +166,7 @@ namespace Gade_1B_part_1
             fs.Close(); 
 
         }
-        public void Load(string savePath)
+        public void BinaryLoad(string savePath)
         {
             path = savePath;
             loadedMap = new string[map.MapWidth, map.MapHeight];
@@ -189,6 +189,37 @@ namespace Gade_1B_part_1
             bw.Close();
             fs.Close();
 
+        }
+
+        public void JSONSave(string savePath)
+        {
+            var jsonSettings = new Newtonsoft.Json.JsonSerializerSettings();
+            jsonSettings.TypeNameHandling = Newtonsoft.Json.TypeNameHandling.All;
+
+            var serializedObject = Newtonsoft.Json.JsonConvert.SerializeObject(map, Newtonsoft.Json.Formatting.Indented, jsonSettings);
+            
+            string path = savePath;
+
+            using (StreamWriter sw = new StreamWriter(savePath))
+            {
+                sw.Write(serializedObject);
+            }
+        }
+
+        public void JSONLoad(string savePath)
+        {
+            var jsonSettings = new Newtonsoft.Json.JsonSerializerSettings();
+            jsonSettings.TypeNameHandling = Newtonsoft.Json.TypeNameHandling.All;
+
+            string data;
+
+            using (StreamReader sr = new StreamReader(savePath))
+            {
+                data = sr.ReadToEnd();
+            }
+
+            var mapReturned = Newtonsoft.Json.JsonConvert.DeserializeObject<Map>(data, jsonSettings);
+            map = mapReturned;
         }
 
 
