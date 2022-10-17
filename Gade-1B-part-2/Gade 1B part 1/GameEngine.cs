@@ -70,42 +70,61 @@ namespace Gade_1B_part_1
             return true;
         }
 
-        public bool EnemyMove(SwampCreature.MovementEnum direction, SwampCreature sc)
+        public bool EnemyMove( SwampCreature sc)
         {
+
+            Random moveRandom = new Random();
+            Character.MovementEnum direction = (Character.MovementEnum)moveRandom.Next(0, 5);
             if (sc.ReturnMove(direction) == direction)
             {
                 sc.Move(direction);
-                Random moveRandom = new Random();
+                
 
 
-                direction = (SwampCreature.MovementEnum)moveRandom.Next(0, 4);
+               
 
                 switch (direction)
                 {
-                    case Character.MovementEnum.Up:
-                        Map.gameMap[sc.Y + 1, sc.X] = new EmptyTile(sc.X, sc.Y);
+                    case Character.MovementEnum.NoMovement:
+                       
+                        // Map.gameMap[sc.Y, sc.X] = new EmptyTile(sc.X, sc.Y);
                         Map.UpdateVision();
+                        MessageBox.Show("NOWHERE");
+                        break;
+
+                    case Character.MovementEnum.Up:
+                        
+                        Map.gameMap[sc.Y+1, sc.X] = new EmptyTile(sc.X, sc.Y);
+                        Map.UpdateVision();
+                        MessageBox.Show("UP");
+
                         break;
 
                     case Character.MovementEnum.Down:
-                        Map.gameMap[sc.Y - 1, sc.X] = new EmptyTile(sc.X, sc.Y);
+                        
+                        Map.gameMap[sc.Y-1, sc.X] = new EmptyTile(sc.X, sc.Y);
                         Map.UpdateVision();
+                        MessageBox.Show("DOWN");
+
                         break;
 
                     case Character.MovementEnum.Left:
-                        Map.gameMap[sc.Y, sc.X - 1] = new EmptyTile(sc.X, sc.Y);
+                        
+                        Map.gameMap[sc.Y, sc.X+1] = new EmptyTile(sc.X, sc.Y);
                         Map.UpdateVision();
+                        MessageBox.Show("LEFT");
+
                         break;
 
                     case Character.MovementEnum.Right:
-                        Map.gameMap[sc.Y, sc.X + 1] = new EmptyTile(sc.X, sc.Y);
+                      
+                        Map.gameMap[sc.Y, sc.X-1] = new EmptyTile(sc.X, sc.Y);
                         Map.UpdateVision();
+                        MessageBox.Show("RIGHT");
+
                         break;
 
-                    default:
-                        Map.gameMap[sc.Y, sc.X] = new EmptyTile(sc.X, sc.Y);
-                        Map.UpdateVision();
-                        break;
+                  
                 }
 
             }

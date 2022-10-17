@@ -35,6 +35,14 @@ namespace Gade_1B_part_1
             RedOutput.Text = GameEngine.Map.Player.ToString();
             
             EnemyMoveAndAttack();
+            CmbListOfEnemies.Items.Clear();
+            for (int i = 0; i < GameEngine.Map.Enemies.Length; i++)
+            {
+                CmbListOfEnemies.Items.Add(GameEngine.Map.Enemies[i].ToString());
+            }
+
+            CmbListOfEnemies.Text = GameEngine.Map.Enemies[0].ToString();
+            redPlayArea.Text = GameEngine.Map.ToString();
         }
 
         private void bntUp_Click(object sender, EventArgs e)
@@ -45,6 +53,15 @@ namespace Gade_1B_part_1
             RedOutput.Text = GameEngine.Map.Player.ToString();
 
             EnemyMoveAndAttack();
+
+            CmbListOfEnemies.Items.Clear();
+            for (int i = 0; i < GameEngine.Map.Enemies.Length; i++)
+            {
+                CmbListOfEnemies.Items.Add(GameEngine.Map.Enemies[i].ToString());
+            }
+
+            CmbListOfEnemies.Text = GameEngine.Map.Enemies[0].ToString();
+            redPlayArea.Text = GameEngine.Map.ToString();
         }
 
         private void btnRight_Click(object sender, EventArgs e)
@@ -55,6 +72,15 @@ namespace Gade_1B_part_1
             RedOutput.Text = GameEngine.Map.Player.ToString();
 
             EnemyMoveAndAttack();
+
+            CmbListOfEnemies.Items.Clear();
+            for (int i = 0; i < GameEngine.Map.Enemies.Length; i++)
+            {
+                CmbListOfEnemies.Items.Add(GameEngine.Map.Enemies[i].ToString());
+            }
+
+            CmbListOfEnemies.Text = GameEngine.Map.Enemies[0].ToString();
+            redPlayArea.Text = GameEngine.Map.ToString();
         }
 
         private void btnDown_Click(object sender, EventArgs e)
@@ -65,6 +91,15 @@ namespace Gade_1B_part_1
             RedOutput.Text = GameEngine.Map.Player.ToString();
 
             EnemyMoveAndAttack();
+
+            CmbListOfEnemies.Items.Clear();
+            for (int i = 0; i < GameEngine.Map.Enemies.Length; i++)
+            {
+                CmbListOfEnemies.Items.Add(GameEngine.Map.Enemies[i].ToString());
+            }
+
+            CmbListOfEnemies.Text = GameEngine.Map.Enemies[0].ToString();
+            redPlayArea.Text = GameEngine.Map.ToString();
         }
 
         private void AttackBtn_Click(object sender, EventArgs e)
@@ -134,22 +169,23 @@ namespace Gade_1B_part_1
 
         public void EnemyMoveAndAttack()
         {
-            EnemyAttack();
+           
 
             for (int i = 0; i < GameEngine.Map.Enemies.Length; i++)
             {
+                   
+
                 if (GameEngine.Map.Enemies[i] is SwampCreature)
                 {
-                    GameEngine.EnemyMove(SwampCreature.MovementEnum.Left, (SwampCreature)gameEngine.Map.Enemies[i]);
-                    GameEngine.Map.gameMap[GameEngine.Map.Enemies[i].X, GameEngine.Map.Enemies[i].Y] = GameEngine.Map.Enemies[i];
+                    GameEngine.EnemyMove((SwampCreature)gameEngine.Map.Enemies[i]);
+                 
+                    GameEngine.Map.gameMap[GameEngine.Map.Enemies[i].Y, GameEngine.Map.Enemies[i].X] = GameEngine.Map.Enemies[i];
                 }
-
-
 
 
             }
 
-
+            EnemyAttack();
         }
 
         private void btnSaveGame_Click(object sender, EventArgs e)

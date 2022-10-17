@@ -104,10 +104,11 @@ namespace Gade_1B_part_1
             for (int m = 0; m < enemies.Length; m++)
             {
                 //Looks at blocks around enemy
-                enemies[m].vision[(int)Character.VisionEnum.North] = map[enemies[m].X, enemies[m].Y - 1];
-                enemies[m].vision[(int)Character.VisionEnum.South] = map[enemies[m].X, enemies[m].Y + 1];
-                enemies[m].vision[(int)Character.VisionEnum.West] = map[enemies[m].X - 1, enemies[m].Y];
-                enemies[m].vision[(int)Character.VisionEnum.East] = map[enemies[m].X + 1, enemies[m].Y];
+              
+                enemies[m].vision[0] = map[enemies[m].Y-1, enemies[m].X];
+                enemies[m].vision[1] = map[enemies[m].Y +1, enemies[m].X];
+                enemies[m].vision[2] = map[enemies[m].Y, enemies[m].X+1];
+                enemies[m].vision[3] = map[enemies[m].Y, enemies[m].X-1];
                 
             }            
         }
