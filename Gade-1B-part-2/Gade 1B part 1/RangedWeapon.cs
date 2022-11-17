@@ -14,8 +14,8 @@ namespace Gade_1B_part_1
         }
 
 
-        RangedWeapon rifle = new RangedWeapon("?", 5, 3, 3, 7 , 1,1);
-        RangedWeapon longBow = new RangedWeapon("?!", 4, 4, 6, 2, 1, 2);
+        RangedWeapon rifle = new RangedWeapon("rfl", 5, 3, 3, 7 , 1,1);
+        RangedWeapon longBow = new RangedWeapon("lb", 4, 4, 6, 2, 1, 2);
         public enum Ranged
         {
             Rifle,

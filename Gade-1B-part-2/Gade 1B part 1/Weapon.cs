@@ -22,6 +22,7 @@ namespace Gade_1B_part_1
 
         public Weapon(int X, int Y) : base(X, Y)
         {
+
         }
 
         public virtual int Range(int weaponDist) { return weaponDist;  }
