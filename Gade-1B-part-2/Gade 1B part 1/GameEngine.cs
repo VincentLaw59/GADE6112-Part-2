@@ -13,7 +13,7 @@ namespace Gade_1B_part_1
         private string[,] loadedMap;
 
         private Map map;
-    
+        private Shop shop;
 
         //private static Hero hero = new Hero(5, 5, 20, 20, 2, HeroChar); //fix char
         private static char heroChar = (char)208;
@@ -23,6 +23,7 @@ namespace Gade_1B_part_1
         
 
         public Map Map { get { return map; } set { map = value; } }
+        public Shop Shop { get { return shop; } set { shop = value; } }
         public static char HeroChar { get { return heroChar; } }
         public char Empty { get { return empty; } }
         public char SwampCreature { get { return swampCreature; } }
