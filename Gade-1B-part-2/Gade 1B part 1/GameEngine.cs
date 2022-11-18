@@ -3,193 +3,169 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.IO;
 
-namespace Gade_1B_part_1
+namespace GADE6112_POE
 {
-    public class GameEngine
+    internal class GameEngine
     {
-        private string path = "GameSaveState.bin";
-        private string[,] loadedMap;
+        private Map gameMap;
 
-        private Map map;
-        private Shop shop;
 
-        //private static Hero hero = new Hero(5, 5, 20, 20, 2, HeroChar); //fix char
-        private static char heroChar = (char)208;
-        private static char empty = (char)44;
-        private static char swampCreature = (char)199;
-        private static char obstacle = (char)42;
-        
+        public Map GameMap { get { return gameMap; } set { gameMap = value; } }
 
-        public Map Map { get { return map; } set { map = value; } }
-        public Shop Shop { get { return shop; } set { shop = value; } }
-        public static char HeroChar { get { return heroChar; } }
-        public char Empty { get { return empty; } }
-        public char SwampCreature { get { return swampCreature; } }
-        public char Obstacle { get { return obstacle; } }
-        public string[,] LoadedMap { get { return loadedMap; } }
-        //public static Hero Hero { get { return hero; } set { hero = value; } }
 
         public GameEngine()
         {
-            map = new Map(10, 10, 10, 10, 5, 5); 
+            gameMap = new Map(10, 15, 10, 15, 3, 5);
         }
+
         public bool MovePlayer(Character.MovementEnum direction)
         {
-            if (Map.Player.ReturnMove(direction) == direction)
+            int old_x = gameMap.Player.X;
+            int old_y = gameMap.Player.Y;
+
+            gameMap.UpdateVision();
+            gameMap.player.Move(gameMap.Player.ReturnMove(direction));
+
+            //Turn previous spot into empty space
+            gameMap.gameMap[old_x, old_y] = new EmptyTile(old_x, old_y);
+            gameMap.UpdateVision();
+
+            Item? temp = gameMap.GetItemAtPosition(gameMap.Player.X, gameMap.Player.Y);
+            if (temp != null)
             {
-                Map.Player.Move(direction);
-
-                switch (direction)
-                {
-                    case Character.MovementEnum.NoMovement:
-                        Map.gameMap[Map.Player.Y, Map.Player.X] = new EmptyTile(Map.Player.X, Map.Player.Y);
-                        break;
-
-                    case Character.MovementEnum.Up:
-                        Map.gameMap[Map.Player.Y + 1, Map.Player.X] = new EmptyTile(Map.Player.X, Map.Player.Y);
-                        map.UpdateVision();
-                        break;
-
-                    case Character.MovementEnum.Down:
-                        Map.gameMap[Map.Player.Y - 1, Map.Player.X] = new EmptyTile(Map.Player.X, Map.Player.Y);
-                        map.UpdateVision();
-                        break;
-
-                    case Character.MovementEnum.Left:
-                        Map.gameMap[Map.Player.Y, Map.Player.X + 1] = new EmptyTile(Map.Player.X, Map.Player.Y);
-                        map.UpdateVision();
-                        break;
-
-                    case Character.MovementEnum.Right:
-                        Map.gameMap[Map.Player.Y, Map.Player.X - 1] = new EmptyTile(Map.Player.X, Map.Player.Y);
-                        map.UpdateVision();
-                        break;
-                }            
+                gameMap.Player.Pickup(temp);
             }
+            
             return true;
-        }
-
-        public bool EnemyMove( SwampCreature sc)
-        {
-
-            Random moveRandom = new Random();
-            Character.MovementEnum direction = (Character.MovementEnum)moveRandom.Next(0, 5);
-            if (sc.ReturnMove(direction) == direction)
-            {
-                sc.Move(direction);
                 
-
-
-               
-
-                switch (direction)
-                {
-                    case Character.MovementEnum.NoMovement:
-                       
-                        // Map.gameMap[sc.Y, sc.X] = new EmptyTile(sc.X, sc.Y);
-                        Map.UpdateVision();
-                        //MessageBox.Show("NOWHERE");
-                        break;
-
-                    case Character.MovementEnum.Up:
-                        
-                        Map.gameMap[sc.Y+1, sc.X] = new EmptyTile(sc.X, sc.Y);
-                        Map.UpdateVision();
-                        //MessageBox.Show("UP");
-
-                        break;
-
-                    case Character.MovementEnum.Down:
-                        
-                        Map.gameMap[sc.Y-1, sc.X] = new EmptyTile(sc.X, sc.Y);
-                        Map.UpdateVision();
-                        //MessageBox.Show("DOWN");
-
-                        break;
-
-                    case Character.MovementEnum.Left:
-                        
-                        Map.gameMap[sc.Y, sc.X+1] = new EmptyTile(sc.X, sc.Y);
-                        Map.UpdateVision();
-                        //MessageBox.Show("LEFT");
-
-                        break;
-
-                    case Character.MovementEnum.Right:
-                      
-                        Map.gameMap[sc.Y, sc.X-1] = new EmptyTile(sc.X, sc.Y);
-                        Map.UpdateVision();
-                        //MessageBox.Show("RIGHT");
-
-                        break;
-
-                  
-                }
-
-            }
-
-            return true;
         }
 
-        public void BinarySave(string savePath)
+        public void AttackEnemy(Enemy target)
         {
-            path = savePath;
-
-            FileStream fs = new FileStream(savePath, FileMode.Create);
-            BinaryWriter bw = new BinaryWriter(fs);
-
-            for (int k = 0; k < map.MapHeight; k++)
+            if (target != null)
             {
-                for (int m = 0; m < map.MapWidth; m++)
+                if (GameMap.Player.CheckRange(target))
                 {
-                    string type = "*";
-                    //bw.Write(map.gameMap[m, k]);
-                    if (map.gameMap[m, k] is EmptyTile)
-                        type = "E";
-                    else if (map.gameMap[m, k] is Hero)
-                        type = "H";
-                    else if (map.gameMap[m, k] is SwampCreature)
-                        type = "S";
-                    else if (map.gameMap[m, k] is Mage)
-                        type = "M";
-                    else if (map.gameMap[m, k] is Gold)
-                        type = "G";
-                    else if (map.gameMap[m, k] is Obstacle)
-                        type = "O";
-
-                    bw.Write(type);
+                    GameMap.Player.Attack(target);
+                    MessageBox.Show("You attacked enemy: " + target.ToString());
                 }
-                bw.Write("-");
+                else MessageBox.Show("Not in range to attack");
+
+                if (target.isDead() == true)
+                {
+                    gameMap.gameMap[target.X, target.Y] = new EmptyTile(target.X, target.Y);
+                    MessageBox.Show("You killed enemy: " + target.ToString());
+                }
             }
-            bw.Close();
-            fs.Close(); 
-
         }
-        public void BinaryLoad(string savePath)
+
+        public void EnemiesMove()
         {
-            path = savePath;
-            loadedMap = new string[map.MapWidth, map.MapHeight];
-
-            FileStream fs = new FileStream(savePath, FileMode.Open);
-            BinaryReader bw = new BinaryReader(fs);
-
-            int counterX = 0, counterY = 0;
-
-            for (int k = 0; k < bw.Read(); k++)
+            for (int k = 0; k < GameMap.Enemies.Length; k++)
             {
-                if (bw.ReadString() != "-")
+                int old_x = gameMap.Enemies[k].X;
+                int old_y = gameMap.Enemies[k].Y;
+
+                SwampCreature sc;
+                Mage mage;
+
+                if (GameMap.Enemies[k] is SwampCreature)
                 {
-                    loadedMap[counterX, counterY] = bw.ReadString();
-                    counterX++;
+                    sc = (SwampCreature)gameMap.Enemies[k];
+                    gameMap.UpdateVision();
+                    Character.MovementEnum enemyMoveDirection = sc.ReturnMove();
+                    gameMap.Enemies[k].Move(enemyMoveDirection);
+                    GameMap.gameMap[GameMap.Enemies[k].X, GameMap.Enemies[k].Y] = GameMap.Enemies[k];
+
+
+                    if (enemyMoveDirection != Character.MovementEnum.NoMovement)
+                    {
+                        gameMap.gameMap[old_x, old_y] = new EmptyTile(old_x, old_y);
+                    }
                 }
-                else counterY++;
-            } 
+                else if (GameMap.Enemies[k] is Mage)
+                {
+                    mage = (Mage)gameMap.Enemies[k];
+                    gameMap.UpdateVision();
+                    Character.MovementEnum enemyMoveDirection = mage.ReturnMove();
+                    gameMap.Enemies[k].Move(enemyMoveDirection);
+                    GameMap.gameMap[GameMap.Enemies[k].X, GameMap.Enemies[k].Y] = GameMap.Enemies[k];
 
-            bw.Close();
-            fs.Close();
+                    if (enemyMoveDirection != Character.MovementEnum.NoMovement)
+                    {
+                        gameMap.gameMap[old_x, old_y] = new EmptyTile(old_x, old_y);
+                    }
+                }
 
+                gameMap.UpdateVision();
+
+            }
+        }
+
+        public void EnemyAttacks1()
+        {
+            for (int k = 0; k < GameMap.Enemies.Length; k++)    //Loop through all enemies
+            {
+                    for (int m = 0; m < gameMap.gameMap.GetLength(0); m++)  //Loop through maps x values
+                    {
+                        for (int n = 0; n < gameMap.gameMap.GetLength(1); n++) //Loops through map y values
+                        {
+                            if (gameMap.gameMap[m, n] is Character) //if position on map is Character
+                            {
+                                Character target = (Character)gameMap.gameMap[m, n];    
+                                
+                                if (gameMap.Enemies[k].CheckRange(target) == true) 
+                                {
+                                    gameMap.Enemies[k].Attack(target);
+                                }
+                            }   
+                        }
+                    }
+            }
+        }
+
+        public void EnemyAttacks()
+        {
+            foreach (Character target in GameMap.Enemies)
+            {
+                if (target is Mage)
+                {
+                    Mage enemy = (Mage)target;
+
+                    for (int k = 0; k < gameMap.Enemies.Length; k++)
+                    {
+                        if ((enemy.CheckRange(GameMap.Enemies[k]) == true) && (enemy != gameMap.Enemies[k]))
+                        {
+                            //MessageBox.Show("Mage attacked " + gameMap.Enemies[k].ToString());
+                            enemy.Attack(gameMap.Enemies[k]);
+                        }
+                    }
+                    if (enemy.CheckRange(gameMap.Player) == true)
+                    {
+                        MessageBox.Show("Mage attacked player");
+                        enemy.Attack(gameMap.Player);
+                    }
+                }
+                else if (target is SwampCreature)
+                {
+                    SwampCreature enemy = (SwampCreature)target;
+
+                    for (int k = 0; k < gameMap.Enemies.Length; k++)
+                    {
+                        if ((enemy.CheckRange(GameMap.Enemies[k]) == true) && (enemy != gameMap.Enemies[k]))
+                        {
+                            MessageBox.Show("Swamp Creature attacked" + gameMap.Enemies[k].ToString());
+                            enemy.Attack(gameMap.Enemies[k]);
+                        }
+                    }
+                    if (enemy.CheckRange(gameMap.Player) == true)
+                    {
+                        MessageBox.Show("SwampCreature attacked player");
+                        enemy.Attack(gameMap.Player);
+                    }
+                }
+            }
         }
 
         public void JSONSave(string savePath)
@@ -197,8 +173,8 @@ namespace Gade_1B_part_1
             var jsonSettings = new Newtonsoft.Json.JsonSerializerSettings();
             jsonSettings.TypeNameHandling = Newtonsoft.Json.TypeNameHandling.All;
 
-            var serializedObject = Newtonsoft.Json.JsonConvert.SerializeObject(map, Newtonsoft.Json.Formatting.Indented, jsonSettings);
-            
+            var serializedObject = Newtonsoft.Json.JsonConvert.SerializeObject(gameMap, Newtonsoft.Json.Formatting.Indented, jsonSettings);
+
             string path = savePath;
 
             using (StreamWriter sw = new StreamWriter(savePath))
@@ -206,7 +182,6 @@ namespace Gade_1B_part_1
                 sw.Write(serializedObject);
             }
         }
-
         public void JSONLoad(string savePath)
         {
             var jsonSettings = new Newtonsoft.Json.JsonSerializerSettings();
@@ -220,14 +195,7 @@ namespace Gade_1B_part_1
             }
 
             var mapReturned = Newtonsoft.Json.JsonConvert.DeserializeObject<Map>(data, jsonSettings);
-            map = mapReturned;
+            gameMap = mapReturned;
         }
-
-
     }
 }
-
-
-
-    
-
